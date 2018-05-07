@@ -25,6 +25,9 @@ RUN npm install finalhandler serve-static
 ADD irunner.js .
 RUN mv irunner.js $(dirname $(stack path --global-pkg-db))/.
 
+# link GHCJS binaries over to /usr/local/bin to be discoverable by Stack
+RUN ln -s $(stack path --compiler-bin --silent)/* /usr/local/bin/.
+
 WORKDIR /
 
 ENV NODE_PATH=$STACK_GLOBAL_PROJECT/node_modules
